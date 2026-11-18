@@ -1,0 +1,476 @@
+<!doctype html><html lang="fr-CA"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><link rel="icon" href="img/icone.png"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Audit réseaux sociaux La Conciergerie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Lexend:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: Prémices report paper — verdict first, account ledger, issues by severity, benchmark, next step offer. */
+:root{
+  --bg:#f7f8f8; --paper:#ffffff; --ink:#121516; --muted:#646b6e; --rule:#d8dddf; --soft:#eff2f3;
+  --accent:#2b7d87; --accent-soft:#e3f1f2;
+  --crit:#b3261e; --crit-soft:#fbe9e7; --warn:#a15c00; --warn-soft:#fdf1df; --ok:#2f7d3a; --ok-soft:#e6f2e7;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace; --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#101314; --paper:#171b1c; --ink:#e9eeef; --muted:#97a1a4; --rule:#2c3335; --soft:#1f2527;
+  --accent:#5fc0ca; --accent-soft:#183135;
+  --crit:#f2867c; --crit-soft:#3a1d1a; --warn:#f0b35a; --warn-soft:#352812; --ok:#7cc98a; --ok-soft:#1a2e1d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#101314; --paper:#171b1c; --ink:#e9eeef; --muted:#97a1a4; --rule:#2c3335; --soft:#1f2527;
+  --accent:#5fc0ca; --accent-soft:#183135;
+  --crit:#f2867c; --crit-soft:#3a1d1a; --warn:#f0b35a; --warn-soft:#352812; --ok:#7cc98a; --ok-soft:#1a2e1d; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px}
+.doc{max-width:900px;margin:0 auto;background:var(--paper);border:1px solid var(--rule);padding:clamp(20px,5vw,56px);display:grid;gap:52px}
+.lbl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+header.top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;border-bottom:1.5px solid var(--ink);padding-bottom:22px}
+.brand{font-family:var(--mono);font-size:clamp(28px,5vw,38px);letter-spacing:-.01em}
+.meta{text-align:right;display:grid;gap:2px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.meta strong{font-weight:400;font-size:clamp(20px,3.6vw,26px);color:var(--ink);letter-spacing:.02em}
+@media (max-width:560px){.meta{text-align:left}}
+.hero{display:grid;gap:16px}
+.hero h1{font-size:clamp(28px,4.8vw,44px);line-height:1.1;font-weight:600;letter-spacing:-.02em}
+.hero p{font-size:17px;color:var(--muted);max-width:64ch}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.facts div{background:var(--paper);padding:14px 16px;display:grid;gap:2px;min-width:0}
+.facts b{font-size:26px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.2}
+.facts span{font-size:12.5px;color:var(--muted)}
+@media (max-width:680px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+section{display:grid;gap:18px;min-width:0}
+section>header{display:grid;gap:6px}
+section h2{font-size:22px;font-weight:600}
+section header p{color:var(--muted);max-width:64ch}
+.verdict{border-left:3px solid var(--accent);padding:4px 0 4px 18px;display:grid;gap:10px;font-size:16px}
+.table-wrap{overflow-x:auto;border:1px solid var(--rule)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:400;background:var(--soft)}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+td .h{font-family:var(--mono);font-size:12.5px}
+.chip{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.chip.crit{background:var(--crit-soft);color:var(--crit)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.na{background:var(--soft);color:var(--muted)}
+.bars{display:grid;gap:10px}
+.bar{display:grid;grid-template-columns:minmax(120px,190px) minmax(0,1fr) 56px;gap:12px;align-items:center;font-size:13.5px}
+.bar .track{height:14px;background:var(--soft);border-radius:2px;overflow:hidden}
+.bar .fill{height:100%;background:var(--accent)}
+.bar .fill.me{background:var(--crit)}
+.bar .v{font-variant-numeric:tabular-nums;text-align:right;font-family:var(--mono);font-size:12.5px}
+@media (max-width:520px){.bar{grid-template-columns:minmax(0,1fr) 56px}.bar .track{grid-column:1/-1;grid-row:2}}
+.issues{display:grid;gap:12px}
+.issue{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;padding:16px 18px;border:1px solid var(--rule);border-left-width:4px;border-radius:2px}
+.issue.crit{border-left-color:var(--crit)}
+.issue.warn{border-left-color:var(--warn)}
+.issue .chip{align-self:start;margin-top:3px}
+.issue h3{font-size:16px;font-weight:600}
+.issue p,.issue ul{grid-column:2;color:var(--muted);font-size:14px;margin:0}
+.issue ul{padding-left:18px}
+.issue .fix{color:var(--ink)}
+.issue .fix b{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-right:6px}
+@media (max-width:520px){.issue{grid-template-columns:minmax(0,1fr)}.issue p,.issue ul{grid-column:1}}
+.plan{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:760px){.plan{grid-template-columns:1fr}}
+.plan div{border-top:1.5px solid var(--ink);padding-top:12px;display:grid;gap:8px;align-content:start}
+.plan h3{font-size:15px;font-weight:600}
+.plan ul{margin:0;padding-left:18px;display:grid;gap:5px;font-size:14px}
+.plan p{font-size:14px;color:var(--muted)}
+.week{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:620px){.week{grid-template-columns:1fr}}
+.week div{background:var(--soft);padding:14px 16px;border-radius:3px;display:grid;gap:4px}
+.week b{font-weight:600}
+.week span{font-size:13.5px;color:var(--muted)}
+.bridge{background:var(--accent-soft);padding:clamp(18px,4vw,28px);border-radius:3px;display:grid;gap:12px}
+.bridge h2{font-size:20px;font-weight:600}
+.bridge ul{margin:0;padding-left:18px;display:grid;gap:5px}
+.src{font-size:12.5px;color:var(--muted);display:grid;gap:4px}
+.src a{color:var(--accent)}
+a{color:var(--accent)}
+footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--muted);border-top:1px solid var(--rule);padding-top:14px}
+
+/* ===== Ce qu'on propose : maquettes ===== */
+:root{
+  --lc-navy:#163A60; --lc-blue:#227BC3; --lc-teal:#43A5AF; --lc-ink-on:#ffffff;
+  --m-bg:#f0f2f5; --m-card:#ffffff; --m-ink:#1c1e21; --m-muted:#65676b; --m-line:#e4e6eb; --m-btn:#e4e6eb;
+  --lex:"Lexend",var(--sans);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --m-bg:#18191a; --m-card:#242526; --m-ink:#e4e6eb; --m-muted:#b0b3b8; --m-line:#3a3b3c; --m-btn:#3a3b3c; --lc-teal:#5cbcc6}}
+:root[data-theme="dark"]{
+  --m-bg:#18191a; --m-card:#242526; --m-ink:#e4e6eb; --m-muted:#b0b3b8; --m-line:#3a3b3c; --m-btn:#3a3b3c; --lc-teal:#5cbcc6}
+.offer{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.offer{grid-template-columns:1fr}}
+.offer div{border:1px solid var(--rule);padding:16px 18px;display:grid;gap:8px;align-content:start;border-radius:3px}
+.offer .k{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.08em}
+.offer h3{font-size:16px;font-weight:600}
+.offer ul{margin:0;padding-left:18px;font-size:14px;color:var(--muted);display:grid;gap:3px}
+.mock-label{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.mock-label h3{font-size:17px;font-weight:600}
+.mock-label span{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.mockwrap{background:var(--m-bg);border-radius:6px;padding:clamp(10px,2.5vw,22px);overflow:hidden}
+/* Facebook-like page */
+.fb{background:var(--m-card);color:var(--m-ink);border-radius:8px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.12);font-family:var(--sans)}
+.fb-cover{position:relative;aspect-ratio:2.7/1;background:var(--lc-navy);overflow:hidden}
+.fb-cover img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;display:block}
+.fb-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(22,58,96,.92) 0%,rgba(22,58,96,.55) 45%,rgba(22,58,96,0) 75%)}
+.fb-cover .tag{position:absolute;z-index:1;left:4%;top:50%;transform:translateY(-50%);display:grid;gap:8px;max-width:46%}
+.fb-cover .tag img{width:min(230px,100%);height:auto;object-fit:contain}
+.fb-cover .tag p{font-family:var(--lex);color:#fff;font-weight:600;font-size:clamp(11px,1.8vw,17px);line-height:1.25}
+.fb-head{display:flex;gap:16px;align-items:flex-end;padding:0 clamp(12px,3vw,24px) 14px;flex-wrap:wrap;border-bottom:1px solid var(--m-line)}
+.fb-avatar{width:clamp(84px,14vw,128px);aspect-ratio:1;border-radius:50%;border:4px solid var(--m-card);margin-top:calc(clamp(84px,14vw,128px) / -2.2);background:var(--lc-navy);overflow:hidden;flex:none}
+.fb-avatar{display:grid;place-items:center;position:relative;z-index:3;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.fb-head{position:relative;z-index:2}
+.fb-avatar img{width:72%;height:72%;object-fit:contain}
+.fb-id{display:grid;gap:2px;flex:1 1 200px;min-width:0;padding-top:10px}
+.fb-id b{font-size:clamp(20px,3.2vw,28px);font-weight:700;letter-spacing:-.01em}
+.fb-id span{color:var(--m-muted);font-size:14px}
+.fb-actions{display:flex;gap:8px;flex-wrap:wrap}
+.mbtn{font:600 14px var(--sans);border:0;border-radius:6px;padding:8px 14px;background:var(--m-btn);color:var(--m-ink);white-space:nowrap}
+.mbtn.pri{background:var(--lc-blue);color:#fff}
+.fb-tabs{display:flex;gap:4px;padding:0 clamp(8px,2vw,18px);font-size:14px;font-weight:600;color:var(--m-muted);overflow-x:auto}
+.fb-tabs span{padding:12px 10px;white-space:nowrap}
+.fb-tabs span.on{color:var(--lc-blue);box-shadow:inset 0 -3px 0 var(--lc-blue)}
+.fb-body{background:var(--m-bg);display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:14px;padding:14px;align-items:start}
+@media (max-width:720px){.fb-body{grid-template-columns:1fr}}
+.fb-box{background:var(--m-card);border-radius:8px;padding:14px 16px;display:grid;gap:10px;box-shadow:0 1px 2px rgba(0,0,0,.1);min-width:0}
+.fb-box h4{margin:0;font-size:17px}
+.fb-box p{font-size:14px;text-align:center;color:var(--m-ink)}
+.fb-info{display:grid;gap:12px;font-size:15px;border-top:1px solid var(--m-line);padding-top:12px}
+.fb-info div{display:grid;grid-template-columns:20px minmax(0,1fr);gap:12px;align-items:start;line-height:1.35}
+.fb-info svg{width:20px;height:20px;fill:none;stroke:var(--m-muted);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.fb-info b{font-weight:600}
+.fb-info b.open{color:#31a24c}
+.fb-info a{color:var(--lc-blue);font-weight:600;text-decoration:none;overflow-wrap:anywhere}
+.fb-info span{overflow-wrap:anywhere}
+.fb-info .dim{color:var(--m-muted)}
+.fb-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;border-radius:6px;overflow:hidden}
+.fb-photos img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.fb-feed{display:grid;gap:14px;min-width:0}
+.post{background:var(--m-card);border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,.1);overflow:hidden}
+.post-h{display:flex;gap:10px;align-items:center;padding:12px 14px}
+.post-h img{width:40px;height:40px;border-radius:50%;object-fit:contain;padding:6px;background:var(--lc-navy)}
+.post-h div{display:grid;line-height:1.25}
+.post-h b{font-size:14.5px}
+.post-h span{font-size:12.5px;color:var(--m-muted)}
+.post-t{padding:0 14px 12px;font-size:14.5px;color:var(--m-ink)}
+.post-m{position:relative;aspect-ratio:16/10;background:var(--lc-navy);overflow:hidden}
+.post-m img{width:100%;height:100%;object-fit:cover;display:block}
+.post-m.split{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--m-card)}
+.post-m.split div{position:relative;overflow:hidden}
+.post-m.split img{filter:saturate(.35) brightness(.72) contrast(.9) sepia(.35)}
+.post-m.split div+div img{filter:none}
+.post-m .chipm{position:absolute;left:10px;top:10px;font-family:var(--lex);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:4px;background:rgba(22,58,96,.9);color:#fff}
+.post-m .chipm.alt{background:var(--lc-teal);color:#06262a}
+.play{position:absolute;left:50%;top:50%;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;background:rgba(0,0,0,.45);display:grid;place-items:center}
+.play::before{content:"";border-left:18px solid #fff;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px}
+.post-m .band{position:absolute;left:0;right:0;bottom:0;padding:22px 14px 12px;background:linear-gradient(transparent,rgba(22,58,96,.95));color:#fff;font-family:var(--lex);font-weight:700;font-size:clamp(15px,2.4vw,22px);line-height:1.15}
+.post-m .band small{display:block;font-weight:400;font-size:12.5px;opacity:.85;margin-top:3px}
+.post-f{display:flex;justify-content:space-around;border-top:1px solid var(--m-line);margin:0 14px;padding:6px 0;font-size:13.5px;font-weight:600;color:var(--m-muted)}
+/* Instagram-like profile in a phone */
+.ig-stage{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:clamp(16px,4vw,40px);align-items:center}
+@media (max-width:720px){.ig-stage{grid-template-columns:minmax(0,1fr);justify-items:center}}
+.ig-stage>*,.phone,.screen{min-width:0}
+.ig-hl{max-width:100%}
+.phone{width:100%;max-width:340px;background:#0c0d0e;border-radius:38px;padding:10px;box-shadow:0 18px 40px rgba(0,0,0,.25)}
+.screen{background:var(--m-card);color:var(--m-ink);border-radius:30px;overflow:hidden;font-family:var(--sans);font-size:13px}
+.ig-top{display:flex;justify-content:center;padding:12px 14px 6px;font-weight:700;font-size:15px}
+.ig-top .notch{width:90px;height:22px;background:#0c0d0e;border-radius:0 0 14px 14px;margin:-12px auto 8px;display:block}
+.ig-row{display:flex;align-items:center;gap:14px;padding:4px 14px}
+.ig-av{width:76px;height:76px;border-radius:50%;padding:3px;background:conic-gradient(var(--lc-teal),var(--lc-blue),var(--lc-navy),var(--lc-teal));flex:none}
+.ig-av.flat{background:var(--m-line)}
+.ig-av img{width:100%;height:100%;border-radius:50%;border:3px solid var(--m-card);object-fit:contain;padding:12px;background:var(--lc-navy);display:block}
+.ig-stats{display:flex;flex:1;justify-content:space-around;text-align:center;line-height:1.2}
+.ig-stats b{display:block;font-size:15px}
+.ig-stats span{font-size:11.5px;color:var(--m-muted)}
+.ig-bio{padding:8px 14px 4px;display:grid;gap:1px;line-height:1.35}
+.ig-bio b{font-size:13.5px}
+.ig-bio .cat{color:var(--m-muted)}
+.ig-bio a{color:var(--lc-blue);text-decoration:none;font-weight:600}
+.ig-bio .empty{color:var(--m-muted);font-style:italic}
+.ig-btns{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:8px 14px}
+.ig-btns span{background:var(--m-btn);border-radius:8px;text-align:center;padding:7px 0;font-weight:600;font-size:12.5px}
+.ig-btns span.pri{background:var(--lc-blue);color:#fff}
+.ig-hl{display:flex;gap:12px;padding:6px 14px 10px;overflow:hidden}
+.ig-hl div{display:grid;justify-items:center;gap:4px;font-size:10.5px;flex:none;width:56px;text-align:center}
+.ig-hl i{width:54px;height:54px;border-radius:50%;border:1.5px solid var(--m-line);display:grid;place-items:center;background:var(--lc-navy);font-style:normal;color:#fff;font-family:var(--lex);font-weight:700;font-size:12px;box-shadow:inset 0 0 0 3px var(--m-card)}
+.ig-hl div:nth-child(even) i{background:var(--lc-teal);color:#06262a}
+.ig-tabs{display:flex;justify-content:space-around;border-top:1px solid var(--m-line);padding:7px 0;font-family:var(--mono);font-size:10px;color:var(--m-muted)}
+.ig-tabs span.on{color:var(--m-ink)}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.tile{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--lc-navy);color:#fff;font-family:var(--lex)}
+.tile img{width:100%;height:100%;object-fit:cover;display:block}
+.tile .tx{position:absolute;inset:0;display:grid;align-content:end;padding:7px;font-weight:700;font-size:10.5px;line-height:1.15;background:linear-gradient(transparent 45%,rgba(22,58,96,.9))}
+.tile.type{display:grid;align-content:center;justify-items:center;text-align:center;padding:8px;gap:4px}
+.tile.type b{font-size:15px;line-height:1.05;font-weight:800;letter-spacing:-.01em}
+.tile.type small{font-size:8.5px;opacity:.85;font-weight:400}
+.tile.type img{width:30px;height:30px;object-fit:contain}
+.tile.teal{background:var(--lc-teal);color:#06262a}
+.tile.white{background:#fff;color:var(--lc-navy);border:1px solid var(--m-line)}
+.tile.white img{width:80%;height:auto}
+.tile .reel{position:absolute;right:6px;top:6px;width:0;height:0;border-left:9px solid #fff;border-top:6px solid transparent;border-bottom:6px solid transparent;filter:drop-shadow(0 0 2px rgba(0,0,0,.6))}
+.tile .todo{position:absolute;left:5px;top:5px;font-family:var(--mono);font-size:7.5px;background:#fff;color:var(--lc-navy);padding:1px 4px;border-radius:2px;font-weight:500}
+.tile.ghost{background:var(--m-line);color:var(--m-muted);display:grid;place-items:center;font-family:var(--mono);font-size:9px;text-align:center;padding:6px}
+.ig-side{display:grid;gap:14px;min-width:0}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:999px;padding:3px;gap:3px;justify-self:start}
+.seg button{font:500 13px var(--sans);border:0;background:transparent;color:var(--ink);padding:7px 14px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ig-notes{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14px}
+.ig-notes li b{font-weight:600}
+.view[hidden]{display:none!important}
+.mock-foot{font-size:12.5px;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.screen .view{animation:fadein .35s ease}}
+@keyframes fadein{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+
+<main class="doc">
+  <header class="top">
+    <div class="brand">Prémices</div>
+    <div class="meta"><strong>AUDIT</strong><span>Réseaux sociaux et présence en ligne</span><span>La Conciergerie</span><span>17 novembre 2026</span></div>
+  </header>
+
+  <div class="hero">
+    <span class="lbl">En résumé</span>
+    <h1>Une entreprise de 80 employés et 50 ans d'histoire, presque invisible en ligne</h1>
+    <p>Sur Facebook et Google, le nom affiché est le bon : « La Conciergerie ». C'est sur Instagram que le changement de nom de février 2026 n'a pas suivi : deux comptes, aucun des deux au nouveau nom, et un site web qui renvoie vers l'ancien. Le contenu publié se limite à des offres d'emploi, sans aucune interaction.</p>
+  </div>
+
+  <div class="facts">
+    <div><b>499</b><span>abonnés Facebook, le seul canal avec une audience</span></div>
+    <div><b>11</b><span>abonnés sur le nouvel Instagram, 0 j'aime en 4 publications</span></div>
+    <div><b>3,5 ★</b><span>sur Google à Amqui (22 avis), sous les concurrents</span></div>
+    <div><b>2</b><span>comptes Instagram, dont un encore sous l'ancien nom</span></div>
+  </div>
+
+  <div class="verdict">
+    <p><strong>Le constat.</strong> Le problème n'est pas le manque de moyens : l'entreprise a de l'équipe, des clients institutionnels et un site neuf. Il manque une présence cohérente et du contenu qui montre le travail. Une fois les comptes remis en ordre, ces gens et ces chantiers fournissent une matière concrète à publier.</p>
+  </div>
+
+  <section>
+    <header><span class="lbl">État des lieux</span><h2>Les comptes, un par un</h2><p>Relevé du 17 novembre 2026, à partir des profils publics.</p></header>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Canal</th><th>Compte</th><th>Audience</th><th>Activité</th><th>État</th></tr></thead>
+        <tbody>
+          <tr><td><b>Facebook</b></td><td>Nom affiché : <b>La Conciergerie</b> (correct)<br><span class="h">Adresse : /laconciergeriedamqui</span></td><td class="num">499 abonnés</td><td>Fiche sans site web, sans heures ni courriel. 0 avis.</td><td><span class="chip warn">À compléter</span></td></tr>
+          <tr><td><b>Instagram</b> (actuel)</td><td><span class="h">@laconciergerieamqui</span><br>Nom : La Conciergerie d'Amqui inc.</td><td class="num">11 abonnés</td><td>4 publications (avril, juin, novembre 2026). Aucune bio, aucun lien. 3 publications sans texte. 0 j'aime, 0 commentaire.</td><td><span class="chip crit">Inactif</span></td></tr>
+          <tr><td><b>Instagram</b> (ancien)</td><td><span class="h">@lee_conciergerie</span><br>Ancien nom : Lee Conciergerie</td><td class="num">10 abonnés</td><td>7 publications de 2022 à janvier 2026. Toujours lié depuis le pied de page du site.</td><td><span class="chip crit">À fermer</span></td></tr>
+          <tr><td><b>Google</b> (Amqui)</td><td>La Conciergerie, 304 boul. Saint-Benoît O.</td><td class="num">3,5 ★ · 22 avis</td><td>Fiche avec site et téléphone. Note la plus basse des entreprises comparées qui ont plus de 5 avis.</td><td><span class="chip crit">Note faible</span></td></tr>
+          <tr><td><b>Google</b> (Rimouski)</td><td>La Conciergerie, 217 av. Léonidas S.</td><td class="num">5 ★ · 1 avis</td><td>Bonne nouvelle : la fiche de Rimouski existe. Elle n'a presque pas d'avis.</td><td><span class="chip warn">À nourrir</span></td></tr>
+          <tr><td><b>LinkedIn</b></td><td>Aucune page entreprise trouvée</td><td class="num">—</td><td>Pourtant la clientèle est B2B : écoles, PME, institutions.</td><td><span class="chip na">Absent</span></td></tr>
+          <tr><td><b>TikTok, YouTube</b></td><td>Aucun compte trouvé</td><td class="num">—</td><td>Pas prioritaire, sauf pour le recrutement.</td><td><span class="chip na">Absent</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <header><span class="lbl">Audience</span><h2>Abonnés par compte</h2></header>
+    <div class="bars">
+      <div class="bar"><span>Facebook</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="v">499</span></div>
+      <div class="bar"><span>Instagram actuel</span><div class="track"><div class="fill me" style="width:2.2%"></div></div><span class="v">11</span></div>
+      <div class="bar"><span>Instagram ancien</span><div class="track"><div class="fill me" style="width:2%"></div></div><span class="v">10</span></div>
+      <div class="bar"><span>LinkedIn</span><div class="track"><div class="fill" style="width:0"></div></div><span class="v">0</span></div>
+    </div>
+    <p class="src">Facebook concentre 96 % de l'audience. Instagram est éparpillé entre deux comptes qui totalisent 21 abonnés.</p>
+  </section>
+
+  <section>
+    <header><span class="lbl">Constats</span><h2>Ce qu'il faut régler, par ordre d'urgence</h2></header>
+    <div class="issues">
+      <div class="issue crit"><span class="chip crit">Critique</span><h3>Le nouveau nom n'a pas suivi sur Instagram</h3>
+        <p>Facebook et Google affichent bien « La Conciergerie ». Sur Instagram, par contre, le compte actuel s'appelle encore « La Conciergerie d'Amqui inc. », l'ancien compte « Lee Conciergerie » est toujours en ligne, et le pied de page du site renvoie vers ce dernier. Un client qui clique depuis le site tombe sur un compte abandonné.</p>
+        <p class="fix"><b>Correctif</b>Garder un seul Instagram, le renommer « La Conciergerie », fermer ou archiver @lee_conciergerie et corriger le lien du site. Détail mineur : l'adresse web de la page Facebook (facebook.com/laconciergeriedamqui) garde l'ancien nom, même si le nom affiché est le bon. À changer seulement si un nom d'utilisateur comme « laconciergerie.ca » est libre.</p></div>
+      <div class="issue crit"><span class="chip crit">Critique</span><h3>3,5 étoiles sur Google à Amqui</h3>
+        <p>C'est la première chose qu'un gestionnaire d'immeuble voit en cherchant un fournisseur. Les concurrents régionaux sont plus hauts : Sani Express 4,9 (16 avis), Nettoyage Simco 4,5 (18 avis).</p>
+        <p class="fix"><b>Correctif</b>Demander un avis à chaque client satisfait (un lien court par courriel ou un code QR sur la facture) et répondre à tous les avis, surtout les négatifs. Avec une quinzaine de nouveaux avis positifs, la note dépasse 4.</p></div>
+      <div class="issue crit"><span class="chip crit">Critique</span><h3>Instagram n'existe pas vraiment</h3>
+        <p>4 publications en 2026, dont 3 sans texte, et 0 interaction. Aucune bio pour dire qui vous êtes, où vous travaillez ni comment vous joindre.</p>
+        <p class="fix"><b>Correctif</b>Bio : « Entretien ménager commercial · Rimouski, La Mitis, La Matapédia · Depuis 1976 », plus le lien du site. Ensuite, publier régulièrement.</p></div>
+      <div class="issue warn"><span class="chip warn">Élevé</span><h3>On ne voit jamais le travail</h3>
+        <p>Les publications récentes sont des offres d'emploi. Rien ne montre un plancher ciré, une vitre impeccable ou l'équipe au travail. Votre site parle d'efficacité et de fiabilité, mais vos réseaux n'en montrent aucune preuve.</p>
+        <p class="fix"><b>Correctif</b>Des avant/après, des gestes de métier filmés de près, des portraits d'employés. C'est exactement la matière des capsules de formation dont vous nous avez parlé.</p></div>
+      <div class="issue warn"><span class="chip warn">Élevé</span><h3>Fiche Facebook incomplète</h3>
+        <p>Pas de site web, pas d'heures d'ouverture, pas de courriel. Aucun avis Facebook. C'est pourtant votre seul compte avec une vraie audience.</p>
+        <p class="fix"><b>Correctif</b>Ajouter la-conciergerie.ca, service@la-conciergerie.ca, les heures (lun.–jeu. 9 h–16 h 30, ven. 9 h–12 h), les deux adresses, la liste des services, et activer les recommandations.</p></div>
+      <div class="issue warn"><span class="chip warn">Moyen</span><h3>Pas de LinkedIn</h3>
+        <p>Vos acheteurs sont des directions d'école, des gestionnaires d'immeubles et des PME. Ils sont sur LinkedIn, et ils y vérifient leurs fournisseurs.</p>
+        <p class="fix"><b>Correctif</b>Créer la page entreprise, demander aux propriétaires d'y être rattachés, publier 2 fois par mois (contrats, embauches, coulisses).</p></div>
+    </div>
+  </section>
+
+  <section>
+    <header><span class="lbl">Comparaison</span><h2>Note Google des entreprises d'entretien de la région</h2><p>Fiches Google relevées le 17 novembre 2026. Le nombre d'avis compte autant que la note.</p></header>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Entreprise</th><th>Secteur</th><th>Note</th><th>Avis</th></tr></thead>
+        <tbody>
+          <tr><td>Sani Express</td><td>L'Islet à Rimouski</td><td class="num">4,9 ★</td><td class="num">16</td></tr>
+          <tr><td>Nettoyage Simco Rénovation</td><td>Rimouski</td><td class="num">4,5 ★</td><td class="num">18</td></tr>
+          <tr><td>Molloy Nettoyage</td><td>Rimouski</td><td class="num">5 ★</td><td class="num">4</td></tr>
+          <tr><td>Nevac</td><td>Rimouski</td><td class="num">3,2 ★</td><td class="num">5</td></tr>
+          <tr style="background:var(--crit-soft)"><td><b>La Conciergerie, Amqui</b></td><td>Amqui</td><td class="num"><b>3,5 ★</b></td><td class="num"><b>22</b></td></tr>
+          <tr><td><b>La Conciergerie, Rimouski</b></td><td>Rimouski</td><td class="num">5 ★</td><td class="num">1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="src">Vous avez déjà le plus d'avis du groupe à Amqui. Il reste à faire monter la note.</p>
+  </section>
+
+  <section id="propose">
+    <header><span class="lbl">Ce qu'on propose</span><h2>Vos réseaux, repensés par Prémices</h2><p>Voici à quoi ressembleraient votre page Facebook et votre Instagram après trois mois. Les maquettes utilisent votre logo, vos couleurs et les photos de votre site.</p></header>
+    <div class="offer">
+      <div><span class="k">VOLET 1</span><h3>Remise à neuf des profils</h3><ul><li>Un seul Instagram, au bon nom</li><li>Bios, couvertures, faits saillants</li><li>Fiches Facebook et Google complètes</li><li>Page LinkedIn</li><li>Gabarits de publication à vos couleurs</li></ul></div>
+      <div><span class="k">VOLET 2</span><h3>Contenu tourné chez vous</h3><ul><li>Une journée de tournage par mois</li><li>Avant/après et gestes de métier</li><li>Portraits d'employés</li><li>Offres d'emploi en vidéo</li><li>Photos de chantier retouchées</li></ul></div>
+      <div><span class="k">VOLET 3</span><h3>Gestion et suivi</h3><ul><li>Calendrier : 2 publications par semaine</li><li>Facebook et Instagram en même temps</li><li>Réponses aux avis Google</li><li>Rapport mensuel : abonnés, avis, candidatures</li></ul></div>
+    </div>
+
+    <div class="mock-label"><h3>Votre page Facebook</h3><span>MAQUETTE · PUBLICATIONS D'EXEMPLE</span></div>
+    <div class="mockwrap">
+      <div class="fb">
+        <div class="fb-cover">
+          <img src="img/photo-3.jpg" alt="L'équipe de La Conciergerie avec son équipement">
+          <div class="tag"><img src="img/logo-v-blanc.png" alt="La Conciergerie, entretien commercial"><p>Des espaces propres, sains et durables. Depuis 1976.</p></div>
+        </div>
+        <div class="fb-head">
+          <div class="fb-avatar"><img src="img/icone.png" alt=""></div>
+          <div class="fb-id"><b>La Conciergerie</b><span>Service de conciergerie · 499 abonnés</span></div>
+          <div class="fb-actions"><span class="mbtn pri">Envoyer un message</span><span class="mbtn">Site web</span></div>
+        </div>
+        <div class="fb-tabs"><span class="on">Publications</span><span>À propos</span><span>Avis</span><span>Photos</span><span>Vidéos</span></div>
+        <div class="fb-body">
+          <div style="display:grid;gap:14px;min-width:0">
+            <div class="fb-box"><h4>Intro</h4><p>Entretien ménager commercial et institutionnel à Rimouski, dans La Mitis et La Matapédia. 80 employés, depuis 1976.</p>
+              <div class="fb-info">
+                <div><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8"/><path d="M10 9v5M10 6.2v.1" stroke-width="2"/></svg><span><b>Page</b> · Service de conciergerie</span></div>
+                <div><svg viewBox="0 0 20 20"><path d="M10 18s6-5.5 6-10a6 6 0 0 0-12 0c0 4.5 6 10 6 10z"/><circle cx="10" cy="8" r="2"/></svg><span>304, boul. Saint-Benoît O., Amqui, QC</span></div>
+                <div><svg viewBox="0 0 20 20"><path d="M10 18s6-5.5 6-10a6 6 0 0 0-12 0c0 4.5 6 10 6 10z"/><circle cx="10" cy="8" r="2"/></svg><span>217, av. Léonidas S., Rimouski, QC</span></div>
+                <div><svg viewBox="0 0 20 20"><path d="M5 3h3l1.5 4-2 1.2a9 9 0 0 0 4.3 4.3l1.2-2 4 1.5v3a2 2 0 0 1-2 2A13 13 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg><span>418 629-1554</span></div>
+                <div><svg viewBox="0 0 20 20"><rect x="2.5" y="4.5" width="15" height="11" rx="1.5"/><path d="M3 5.5l7 5.5 7-5.5"/></svg><span>service@la-conciergerie.ca</span></div>
+                <div><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8"/><path d="M2 10h16M10 2c2.5 2.5 2.5 13.5 0 16M10 2c-2.5 2.5-2.5 13.5 0 16"/></svg><a href="https://la-conciergerie.ca/" target="_blank" rel="noopener">la-conciergerie.ca</a></div>
+                <div><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8"/><path d="M10 5.5V10l3 2"/></svg><span><b class="open">Ouvert maintenant</b> · lun. au jeu. 9 h à 16 h 30</span></div>
+                <div><svg viewBox="0 0 20 20"><path d="M10 2.5l2.3 4.8 5.2.7-3.8 3.6.9 5.2L10 14.3l-4.6 2.5.9-5.2L2.5 8l5.2-.7z"/></svg><span>Pas encore noté <span class="dim">(0 avis)</span></span></div>
+              </div>
+            </div>
+            <div class="fb-box"><h4>Photos</h4><div class="fb-photos"><img src="img/photo-2.jpg" alt=""><img src="img/photo-1.jpg" alt=""><img src="img/photo-3.jpg" alt="" style="object-position:80% 50%"><img src="img/photo-2.jpg" alt="" style="object-position:90% 50%"><img src="img/photo-1.jpg" alt="" style="object-position:20% 60%"><img src="img/photo-3.jpg" alt="" style="object-position:15% 50%"></div></div>
+          </div>
+          <div class="fb-feed">
+            <article class="post">
+              <div class="post-h"><img src="img/icone.png" alt=""><div><b>La Conciergerie</b><span>Mardi · Rimouski</span></div></div>
+              <p class="post-t">Décapage, trois couches de fini et polissage. Voici le résultat sur un plancher commercial à Rimouski.</p>
+              <div class="post-m"><img src="img/photo-2.jpg" alt="Plancher commercial fraîchement ciré" style="object-position:30% 75%"><span class="chipm alt">Avant / après · vidéo à tourner</span><span class="play"></span><div class="band">Un plancher qui brille<small>Vidéo de 30 secondes</small></div></div>
+              <div class="post-f"><span>J'aime</span><span>Commenter</span><span>Partager</span></div>
+            </article>
+            <article class="post">
+              <div class="post-h"><img src="img/icone.png" alt=""><div><b>La Conciergerie</b><span>Lundi · Amqui</span></div></div>
+              <p class="post-t">On forme toutes nos équipes avec les mêmes méthodes, sur tous nos sites. Capsule 1 : la table de conférence, sans traces.</p>
+              <div class="post-m"><img src="img/photo-1.jpg" alt="Employé qui nettoie une table de conférence" style="object-position:30% 50%"><span class="play"></span><div class="band">Le bon geste<small>Capsule de formation · 1 min 30</small></div></div>
+              <div class="post-f"><span>J'aime</span><span>Commenter</span><span>Partager</span></div>
+            </article>
+            <article class="post">
+              <div class="post-h"><img src="img/icone.png" alt=""><div><b>La Conciergerie</b><span>Jeudi · Rimouski</span></div></div>
+              <p class="post-t">On agrandit l'équipe à Rimouski! Préposé·e à l'entretien ménager, temps plein, 22 $ de l'heure. Écris-nous.</p>
+              <div class="post-m"><img src="img/photo-3.jpg" alt="L'équipe de La Conciergerie"><span class="chipm alt">On embauche</span><div class="band">Rejoins l'équipe<small>Rimouski · temps plein · 22 $/h</small></div></div>
+              <div class="post-f"><span>J'aime</span><span>Commenter</span><span>Partager</span></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mock-label"><h3>Votre Instagram</h3><span>MAQUETTE · COMPAREZ AVEC AUJOURD'HUI</span></div>
+    <div class="ig-stage">
+      <div class="phone"><div class="screen">
+        <div class="view" id="igAfter">
+          <div class="ig-top"><div><span class="notch"></span>laconciergerie</div></div>
+          <div class="ig-row"><div class="ig-av"><img src="img/icone.png" alt=""></div>
+            <div class="ig-stats"><div><b>24</b><span>publications</span></div><div><b>300</b><span>abonnés</span></div><div><b>85</b><span>suivi(e)s</span></div></div></div>
+          <div class="ig-bio"><b>La Conciergerie</b><span class="cat">Service de conciergerie</span><span>Entretien ménager commercial depuis 1976</span><span>Rimouski · La Mitis · La Matapédia</span><span>On embauche, écris-nous!</span><a>la-conciergerie.ca</a></div>
+          <div class="ig-btns"><span class="pri">Contacter</span><span>Message</span></div>
+          <div class="ig-hl"><div><i>A/A</i>Avant/après</div><div><i>ÉQ</i>Équipe</div><div><i>JOB</i>Emplois</div><div><i>SERV</i>Services</div><div><i>★</i>Avis</div></div>
+          <div class="ig-tabs"><span class="on">GRILLE</span><span>REELS</span><span>IDENTIFIÉ</span></div>
+          <div class="ig-grid">
+            <div class="tile"><img src="img/photo-2.jpg" alt="" style="object-position:28% 70%"><span class="reel"></span><div class="tx">Avant/après<br>plancher ciré</div></div>
+            <div class="tile type"><img src="img/filigrane.png" alt=""><b>Depuis<br>1976</b><small>50 ans d'entretien</small></div>
+            <div class="tile"><img src="img/photo-1.jpg" alt="" style="object-position:30% 50%"><span class="reel"></span><div class="tx">Le bon geste :<br>la table</div></div>
+            <div class="tile type teal"><b>On<br>embauche</b><small>Rimouski · 22 $/h</small></div>
+            <div class="tile"><img src="img/photo-3.jpg" alt="" style="object-position:50% 50%"><div class="tx">Notre équipe</div></div>
+            <div class="tile type"><span class="todo">À TOURNER</span><span class="reel"></span><b>Vitres<br>sans traces</b><small>en 3 étapes</small></div>
+            <div class="tile"><img src="img/photo-2.jpg" alt="" style="object-position:88% 55%"><div class="tx">Le chariot<br>bien monté</div></div>
+            <div class="tile type white"><img src="img/logo-h.png" alt="La Conciergerie"><small style="color:var(--lc-navy)">80 employés · 3 régions</small></div>
+            <div class="tile"><img src="img/photo-1.jpg" alt="" style="object-position:62% 75%"><span class="reel"></span><div class="tx">Points de<br>contact</div></div>
+          </div>
+        </div>
+        <div class="view" id="igBefore" hidden>
+          <div class="ig-top"><div><span class="notch"></span>laconciergerieamqui</div></div>
+          <div class="ig-row"><div class="ig-av flat"><img src="img/icone.png" alt=""></div>
+            <div class="ig-stats"><div><b>4</b><span>publications</span></div><div><b>11</b><span>abonnés</span></div><div><b>0</b><span>suivi(e)s</span></div></div></div>
+          <div class="ig-bio"><b>La Conciergerie d'Amqui inc.</b><span class="empty">Aucune bio · aucun lien</span></div>
+          <div class="ig-btns"><span>Suivre</span><span>Message</span></div>
+          <div class="ig-tabs"><span class="on">GRILLE</span><span>REELS</span><span>IDENTIFIÉ</span></div>
+          <div class="ig-grid">
+            <div class="tile ghost">Offre d'emploi<br>0 j'aime</div>
+            <div class="tile ghost">Photo<br>sans texte</div>
+            <div class="tile ghost">Photo<br>sans texte</div>
+            <div class="tile ghost">Photo<br>sans texte</div>
+          </div>
+          <div style="height:220px"></div>
+        </div>
+      </div></div>
+      <div class="ig-side">
+        <div class="seg" role="group" aria-label="Comparer"><button type="button" id="bAfter" aria-pressed="true">Ce qu'on propose</button><button type="button" id="bBefore" aria-pressed="false">Aujourd'hui</button></div>
+        <ul class="ig-notes">
+          <li><b>Un seul compte, au bon nom.</b> @laconciergerie si le nom est libre, sinon @laconciergerie.ca.</li>
+          <li><b>Une bio qui répond aux trois questions</b> d'un client : quoi, où, comment vous joindre.</li>
+          <li><b>Des faits saillants permanents</b> pour les avant/après, l'équipe, les emplois et les avis.</li>
+          <li><b>Une grille qui alterne</b> vidéos de travail, visuels à vos couleurs et portraits d'équipe.</li>
+          <li><b>Chiffres affichés :</b> à titre d'exemple, après quelques mois de publications régulières.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="mock-foot">Maquettes de présentation. Les textes de publication sont des exemples à valider avec vous ; le visuel marqué « À tourner » serait produit lors du premier tournage.</p>
+  </section>
+
+  <section>
+    <header><span class="lbl">La suite</span><h2>Un plan de match pour vos réseaux sociaux</h2><p>Si le sujet vous intéresse, on peut regarder avec vous une restructuration de vos réseaux sociaux. On bâtirait ensemble un plan de match adapté à vos objectifs et à vos ressources.</p></header>
+    <div class="plan">
+      <div><span class="lbl">Remettre de l'ordre</span><h3>Des comptes cohérents</h3><p>Un seul Instagram au bon nom, des fiches complètes et une image fidèle à La Conciergerie.</p></div>
+      <div><span class="lbl">Montrer le travail</span><h3>Du contenu qui vous ressemble</h3><p>Vos équipes, vos gestes de métier et vos résultats, tournés chez vous.</p></div>
+      <div><span class="lbl">Durer</span><h3>Un rythme réaliste</h3><p>Un calendrier simple à suivre, et un suivi pour voir ce qui fonctionne.</p></div>
+    </div>
+    <p>On peut en discuter lors de notre rencontre pour les capsules : on vous présentera les options possibles et le budget à prévoir.</p>
+  </section>
+
+  <div class="bridge">
+    <span class="lbl">Lien avec votre projet</span>
+    <h2>Un seul tournage pour former et pour publier</h2>
+    <p>Vous voulez des capsules de formation pour vos employés. Le même tournage peut aussi produire votre contenu public :</p>
+    <ul>
+      <li>Les capsules complètes restent à l'interne, pour la formation.</li>
+      <li>Les meilleurs plans deviennent des vidéos courtes pour Facebook et Instagram.</li>
+      <li>Les employés filmés deviennent vos portraits de recrutement.</li>
+    </ul>
+    <p>Une journée de tournage peut fournir assez de matière pour les deux premiers mois de publications.</p>
+  </div>
+
+  <section>
+    <span class="lbl">Sources et limites</span>
+    <div class="src">
+      <p>Profils publics Instagram, Facebook et Google Maps relevés le 17 novembre 2026 ; site la-conciergerie.ca ; <a href="https://journallesoir.ca/2026/02/25/lee-conciergerie-devient-la-conciergerie/" target="_blank" rel="noopener">Journal Le Soir, 25 février 2026</a> (changement de nom, 80 employés).</p>
+      <p>Non mesuré : la fréquence et l'engagement des publications Facebook, qui ne sont pas accessibles publiquement. Les statistiques internes (portée, visites) demandent un accès aux comptes.</p>
+    </div>
+  </section>
+
+  <footer><span>Prémices</span><span>Audit réseaux sociaux — La Conciergerie</span></footer>
+</main>
+<script>
+(()=>{const a=document.getElementById("bAfter"),b=document.getElementById("bBefore"),va=document.getElementById("igAfter"),vb=document.getElementById("igBefore");
+function set(after){va.hidden=!after;vb.hidden=after;a.setAttribute("aria-pressed",String(after));b.setAttribute("aria-pressed",String(!after));}
+a.addEventListener("click",()=>set(true));b.addEventListener("click",()=>set(false));})();
+</script>
+
+</body></html>
