@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Roadmap 10 000 abonnés Dickner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Narrow:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Plan : papier clair, encre noire, jaune Dickner en aplats (jamais en texte), gris 416C pour le secondaire.
+   Une colonne large, sections empilées, onglets pour les paliers. Thème clair unique, par choix de marque. */
+:root{
+  color-scheme: light;
+  --paper:#f4f5ef;
+  --card:#ffffff;
+  --ink:#0a0a0a;
+  --soft:#55564f;
+  --grey:#828282;
+  --line:#dcdfd2;
+  --lime:#D1F811;
+  --lime-soft:#eefbb0;
+  --ok:#1f7a3a;
+  --warn:#b45309;
+  --display:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --label:"Archivo Narrow","Archivo","Helvetica Neue",Arial,sans-serif;
+  --r:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--display);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{text-wrap:balance;letter-spacing:-.02em;line-height:1.05}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--label);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:10;background:rgba(244,245,239,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+nav a{flex:none;font-family:var(--label);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--ink);padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
+nav a:hover{background:var(--lime);border-color:var(--ink)}
+
+/* Hero */
+header{padding:36px 0 28px}
+.hero-top{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:flex-end;justify-content:space-between}
+h1{font-weight:900;font-size:clamp(40px,8vw,84px);text-transform:uppercase}
+h1 mark{background:var(--lime);color:var(--ink);padding:0 .12em;border-radius:6px}
+.lede{max-width:56ch;color:var(--soft);margin-top:14px;font-size:17px}
+.now{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;min-width:230px}
+.now label{display:block;font-family:var(--label);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin-bottom:6px}
+.now input{width:100%;font:900 34px/1 var(--display);border:0;border-bottom:3px solid var(--ink);background:transparent;padding:2px 0 6px;color:var(--ink);font-variant-numeric:tabular-nums}
+.now small{display:block;margin-top:8px;color:var(--soft);font-size:13px}
+
+.track{margin-top:30px}
+.bar{position:relative;height:26px;background:var(--card);border:2px solid var(--ink);border-radius:999px;overflow:hidden}
+.bar i{position:absolute;inset:0 auto 0 0;background:var(--lime);border-right:2px solid var(--ink);transition:width .5s ease}
+.ticks{position:relative;height:44px;margin-top:6px}
+.ticks span{position:absolute;top:0;transform:translateX(-50%);font-family:var(--label);font-weight:700;font-size:13px;text-align:center;white-space:nowrap}
+.ticks span::before{content:"";display:block;width:2px;height:8px;background:var(--ink);margin:0 auto 3px}
+.ticks span.done{color:var(--ok)}
+.ticks span:first-child{transform:none}
+.ticks span:first-child::before{margin-left:0}
+.ticks span:last-child{transform:translateX(-100%)}
+.ticks span:last-child::before{margin-right:0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+.kpi b{display:block;font-weight:900;font-size:clamp(24px,3.4vw,34px);line-height:1.05;letter-spacing:-.02em}
+.kpi span{display:block;color:var(--soft);font-size:13.5px;margin-top:4px}
+
+section{padding:44px 0;border-top:1px solid var(--line)}
+section>.wrap>h2{font-weight:900;font-size:clamp(28px,4.6vw,44px);text-transform:uppercase;margin:6px 0 10px}
+.sub{color:var(--soft);max-width:66ch;margin-bottom:22px}
+
+/* Constat */
+.split{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.chart-scroll{overflow-x:auto}
+.chart-scroll svg{display:block;min-width:620px;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:13px;color:var(--soft)}
+.legend i{display:inline-block;width:22px;height:0;border-top:3px solid var(--ink);vertical-align:middle;margin-right:6px}
+.legend i.t{border-top:2px dashed var(--grey)}
+.legend i.p{border-top:6px solid var(--lime);outline:1px solid var(--ink)}
+.facts{display:grid;gap:12px}
+.fact b{display:block;font-weight:900;font-size:30px;letter-spacing:-.02em;line-height:1}
+.fact p{color:var(--soft);font-size:14.5px;margin-top:6px}
+.fact.hl{background:var(--lime);border-color:var(--ink)}
+.fact.hl p{color:var(--ink)}
+
+/* Paliers */
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.tab{flex:none;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;min-width:132px}
+.tab b{display:block;font-weight:900;font-size:22px;letter-spacing:-.02em;line-height:1.1}
+.tab span{display:block;font-family:var(--label);font-weight:600;font-size:12.5px;color:var(--soft);text-transform:uppercase;letter-spacing:.06em}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab[aria-selected="true"] span{color:var(--lime)}
+.tab.done b::after{content:" ✓";color:var(--ok)}
+.panel{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.panel-head{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:end;padding:20px;border-bottom:1px solid var(--line)}
+.panel-head h3{font-weight:900;font-size:clamp(24px,3.6vw,36px);text-transform:uppercase}
+.panel-head p{color:var(--soft);margin-top:8px;max-width:60ch}
+.pace{background:var(--lime);border:2px solid var(--ink);border-radius:12px;padding:10px 14px;text-align:right;min-width:190px}
+.pace b{display:block;font-weight:900;font-size:26px;line-height:1}
+.pace span{font-size:13px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr)}
+.col{padding:18px 20px;border-right:1px solid var(--line)}
+.col:last-child{border-right:0}
+.col h4{margin:0 0 10px;font-family:var(--label);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.col ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.col li{font-size:15px;padding-left:16px;position:relative}
+.col li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;background:var(--lime);border:1px solid var(--ink)}
+.todo label{display:flex;gap:10px;align-items:flex-start;font-size:15px;padding:5px 0;cursor:pointer}
+.todo input{flex:none;width:18px;height:18px;margin-top:2px;accent-color:#0a0a0a}
+.todo input:checked+span{color:var(--grey);text-decoration:line-through}
+
+/* Loge */
+.steps{display:grid;gap:0;border:1px solid var(--line);border-radius:var(--r);background:var(--card);overflow:hidden}
+.step{display:grid;grid-template-columns:128px 1fr;gap:16px;padding:13px 18px;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:0}
+.step time{font-family:var(--label);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.05em}
+.step b{display:block}
+.step span{color:var(--soft);font-size:14.5px}
+.step.key{background:var(--lime-soft)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.copy{white-space:pre-wrap;font-size:15.5px;background:var(--paper);border:1px dashed var(--grey);border-radius:10px;padding:14px;margin:10px 0}
+.btn{background:var(--ink);color:#fff;border:0;border-radius:999px;padding:9px 16px;font-weight:700;font-size:14px}
+.btn:hover{background:#2a2a2a}
+.note{font-size:13.5px;color:var(--soft);margin-top:10px}
+.pill{display:inline-block;font-family:var(--label);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--ink);border-radius:999px;padding:2px 9px;background:var(--lime)}
+.plain{margin:0;padding-left:18px;display:grid;gap:7px;font-size:15px}
+
+.tbl-scroll{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+.tbl{border-collapse:collapse;width:100%;min-width:680px;font-size:15px}
+.tbl th{font-family:var(--label);font-weight:700;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);text-align:left;padding:12px 16px;border-bottom:1px solid var(--line)}
+.tbl td{padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tr:last-child td{border-bottom:0}
+.tbl td span{display:block;color:var(--soft);font-size:13px}
+.tbl td.num{font-weight:800;white-space:nowrap}
+.tbl tr.hl td{background:var(--lime-soft)}
+.datein{font:800 22px/1 var(--display);padding:10px 12px;border:2px solid var(--ink);border-radius:10px;background:var(--card);color:var(--ink);width:100%;max-width:260px}
+/* Contenu */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pil b{display:block;font-weight:800;font-size:18px;letter-spacing:-.01em}
+.pil em{font-style:normal;font-family:var(--label);font-weight:700;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.pil p{color:var(--soft);font-size:14.5px;margin-top:6px}
+
+/* Simulateur */
+.sim{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.ctrl{display:grid;gap:16px}
+.ctrl label{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:14.5px;font-weight:600}
+.ctrl output{font-weight:900;font-variant-numeric:tabular-nums}
+.ctrl input[type=range]{grid-column:1/-1;width:100%;accent-color:#0a0a0a}
+.result{background:var(--ink);color:#fff;border-radius:var(--r);padding:20px;display:grid;gap:16px;align-content:start}
+.result .big{font-weight:900;font-size:clamp(34px,5vw,52px);line-height:1;letter-spacing:-.02em;color:var(--lime)}
+.result small{display:block;color:#c9c9c9;font-size:13.5px;margin-top:4px}
+.result .row{display:grid;grid-template-columns:1fr 1fr;gap:14px;border-top:1px solid #333;padding-top:14px}
+.result .row b{display:block;font-size:22px;font-weight:800}
+.verdict{font-weight:700;border-radius:10px;padding:10px 12px;background:#1c1c1c;border:1px solid #333}
+
+footer{padding:26px 0 50px;color:var(--soft);font-size:13px;border-top:1px solid var(--line)}
+
+@media (max-width:820px){
+  .split,.sim,.two{grid-template-columns:1fr}
+  .cols{grid-template-columns:1fr}
+  .col{border-right:0;border-bottom:1px solid var(--line)}
+  .col:last-child{border-bottom:0}
+  .grid3{grid-template-columns:1fr 1fr}
+  .kpis{grid-template-columns:1fr 1fr}
+  .panel-head{grid-template-columns:1fr}
+  .pace{text-align:left}
+}
+@media (max-width:520px){
+  .grid3{grid-template-columns:1fr}
+  .step{grid-template-columns:1fr;gap:2px}
+  .ticks span:not(:first-child):not(:last-child):nth-child(even){display:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar i{transition:none}}
+</style>
+</head>
+<body>
+
+<nav aria-label="Sections"><div class="wrap">
+  <a href="#constat">Constat</a>
+  <a href="#analyse">Analyse</a>
+  <a href="#paliers">Paliers</a>
+  <a href="#loge">Loge Océanic</a>
+  <a href="#ouverture">Ouverture</a>
+  <a href="#contenu">Contenu</a>
+  <a href="#leviers">Leviers</a>
+  <a href="#simulateur">Simulateur</a>
+  <a href="#suivi">Suivi</a>
+  <a href="#regles">Règles</a>
+</div></nav>
+
+<header><div class="wrap">
+  <div class="hero-top">
+    <div>
+      <p class="eyebrow">Dickner · Page Facebook · Plan de croissance · Mis à jour le 25 novembre 2026</p>
+      <h1>Objectif <mark class="num">10 000</mark></h1>
+      <p class="lede">Six paliers, un concours par palier, une date pour chacun. Le premier : une loge à l'Océanic qu'on fait tirer à 5 000 abonnés.</p>
+    </div>
+    <div class="now">
+      <label for="current">Abonnés au 25 novembre 2026</label>
+      <input id="current" class="num" type="number" inputmode="numeric" min="0" max="20000" value="4343">
+      <small>À chaque mise à jour, entre le nouveau chiffre : tout le plan se recalcule.</small>
+    </div>
+  </div>
+
+  <div class="track">
+    <div class="bar" role="img" aria-label="Progression vers 10 000 abonnés"><i id="fill"></i></div>
+    <div class="ticks" id="ticks"></div>
+    <div class="kpis">
+      <div class="kpi"><b class="num" id="k-left">5 657</b><span>abonnés à aller chercher</span></div>
+      <div class="kpi"><b class="num" id="k-next">657</b><span id="k-next-l">avant le palier 5 000</span></div>
+      <div class="kpi"><b class="num" id="k-pace">435</b><span>par mois pour arriver le 15 déc. 2027</span></div>
+      <div class="kpi"><b class="num">×3</b><span>le rythme moyen des 7 derniers mois</span></div>
+    </div>
+  </div>
+</div></header>
+
+<section id="constat"><div class="wrap">
+  <p class="eyebrow">01 · Constat</p>
+  <h2>Publier ne fait pas grossir la page. Les campagnes, oui.</h2>
+  <p class="sub">Données Metricool de la page Facebook Dickner, du 14 avril au 24 novembre 2026. La première poussée correspond au concours Milwaukee du 30 avril. Les deux autres (début juin, fin juillet) restent à identifier ensemble : c'est la recette à répéter.</p>
+  <div class="split">
+    <div class="card">
+      <div class="chart-scroll"><svg id="chart" viewBox="0 0 900 390" role="img" aria-label="Abonnés Facebook Dickner : historique, objectif et projection"></svg></div>
+      <div class="legend"><span><i></i>Réel</span><span><i class="t"></i>Trajectoire visée</span><span><i class="p"></i>Projection du simulateur</span></div>
+    </div>
+    <div class="facts">
+      <div class="card fact"><b class="num">+1 097</b><p>abonnés en 7 mois (3 246 → 4 343), soit environ 150 par mois en moyenne.</p></div>
+      <div class="card fact hl"><b class="num">76 %</b><p>de cette croissance est arrivée en 3 poussées totalisant moins de 4 semaines : fin avril (+253), début juin (+216), fin juillet (+361).</p></div>
+      <div class="card fact"><b class="num">+12</b><p>abonnés en 12 semaines, du 7 août au 27 octobre, malgré des publications presque tous les jours.</p></div>
+      <div class="card fact"><b class="num">39</b><p>abonnés sur Instagram. Le plan vise Facebook; Instagram suit avec les mêmes Reels, sans effort séparé.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="analyse"><div class="wrap">
+  <p class="eyebrow">02 · Analyse des réseaux</p>
+  <h2>Ce qui marche, ce qui ne marche pas</h2>
+  <p class="sub">Publications et Reels de la page Facebook Dickner, d'avril à novembre 2026. Instagram (39 abonnés) et la page du groupe (472) sont trop petits pour en tirer des leçons : on concentre tout sur une seule page.</p>
+
+  <div class="tbl-scroll"><table class="tbl">
+    <thead><tr><th>Publication</th><th>Personnes rejointes</th><th>Abonnés gagnés</th><th>Ce qu'on retient</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td><b>Concours Milwaukee</b><span>Reel · 30 avril</span></td><td class="num">45 769</td><td class="num">+253</td><td>« Like notre page » était la première condition. Le meilleur coup de l'année.</td></tr>
+      <tr><td><b>Avis de recherche de la nacelle</b><span>Photos · 28 oct.</span></td><td class="num">42 191</td><td class="num">+16*</td><td>457 partages, mais rien n'invitait à s'abonner. La portée seule ne suffit pas.</td></tr>
+      <tr><td><b>Concours Fête des Pères</b><span>Reel · 15 juin</span></td><td class="num">16 843</td><td class="num">+20</td><td>Aimer, identifier, partager : l'abonnement à la page n'était pas demandé.</td></tr>
+      <tr><td><b>« On déménage, vous économisez »</b><span>Reel · 5 nov.</span></td><td class="num">16 144</td><td class="num">+10</td><td>Un Reel maison rejoint près de 4 fois la taille de la page. Le déménagement intéresse les gens.</td></tr>
+      <tr><td><b>Concours billets du 3L</b><span>Photo · 26 oct.</span></td><td class="num">1 200</td><td class="num">+16*</td><td>Trois pages à aimer, aucune pub : le concours n'est presque pas sorti de la page.</td></tr>
+      <tr><td><b>Photo de produit typique</b><span>Stihl, Echo, Einhell · oct. et nov.</span></td><td class="num">200 à 600</td><td class="num">0</td><td>Zéro ou une réaction. Plusieurs sont publiées en double à deux jours d'écart.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">* Même semaine : les 16 abonnés sont le total des deux publications ensemble. Abonnés gagnés : variation de la page dans les jours suivant la publication.</p>
+
+  <div class="grid3" style="margin-top:18px">
+    <div class="card pil"><em>Stratégie 1</em><b>L'abonnement d'abord</b><p>Dans chaque concours, « Abonne-toi à la page Dickner » est la condition numéro un. C'est la différence entre +253 et +20.</p></div>
+    <div class="card pil"><em>Stratégie 2</em><b>Concours en Reel, avec pub</b><p>Les Reels maison rejoignent de 4 000 à 16 000 personnes, contre 200 à 600 pour une photo. Chaque concours se lance en Reel et reçoit un budget.</p></div>
+    <div class="card pil"><em>Stratégie 3</em><b>Inviter ceux qui réagissent</b><p>Chaque personne qui aime une publication peut être invitée à aimer la page. Sur les gros coups de l'année, ça représente des centaines d'invitations jamais envoyées.</p></div>
+    <div class="card pil"><em>Stratégie 4</em><b>Moins de contenu fournisseur</b><p>Une grande part des publications sont des textes de marques, parfois publiés en double. On en garde une ou deux par semaine, réécrites à notre façon.</p></div>
+    <div class="card pil"><em>Stratégie 5</em><b>Du monde et du local</b><p>La visite au CFP de Mont-Joli a rejoint 5 744 personnes et récolté 53 réactions. Les employés, les clients et la région battent les fiches de produit.</p></div>
+    <div class="card pil"><em>Stratégie 6</em><b>Lundi au mercredi, 10 h à midi</b><p>C'est là que les abonnés de la page sont en ligne. Le samedi et le dimanche, l'auditoire baisse de près de moitié.</p></div>
+  </div>
+</div></section>
+
+<section id="paliers"><div class="wrap">
+  <p class="eyebrow">03 · Les six paliers</p>
+  <h2>Un prix, une date, un thème par palier</h2>
+  <p class="sub">Chaque palier suit la saison de vente en magasin. Le prix se débloque quand le chiffre est atteint, avec une date limite ferme pour le tirage. Les prix des paliers 2 à 6 sont des propositions à valider avec l'équipe et les fournisseurs.</p>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="panel" id="panel" role="tabpanel"></div>
+</div></section>
+
+<section id="loge"><div class="wrap">
+  <p class="eyebrow">04 · Prochain concours</p>
+  <h2>La loge à 5 000</h2>
+  <p class="sub">Loge de 12 personnes à un match de l'Océanic au Colisée Financière Sun Life, plus 200 $ de nourriture. On la tire dès que la page atteint 5 000 abonnés. Il en manque <b class="num" id="loge-left">657</b> : plus que n'importe quelle poussée de 2026, donc on met le paquet.</p>
+
+  <div class="steps">
+    <div class="step"><time>27 nov.</time><div><b>Black Friday et événement Milwaukee à Mont-Joli</b><span>On ne lance rien. On profite de l'achalandage pour préparer le terrain.</span></div></div>
+    <div class="step"><time>30 nov.</time><div><b>Confirmer la loge et le match avec l'Océanic</b><span>Suggestion : vendredi 29 janvier, 19 h, contre les Foreurs. Plans B : 12 février (Cataractes) ou 26 février (Saguenéens).</span></div></div>
+    <div class="step key"><time>Mar. 1er déc.</time><div><b>Lancement</b><span>Reel de Kevin, publication épinglée, photo de couverture de la page, affiches à la caisse des 4 succursales.</span></div></div>
+    <div class="step"><time>1er au 20 déc.</time><div><b>Pub Meta sur la publication du concours</b><span>Bas-Saint-Laurent et Gaspésie. Mise à jour du compteur à chaque 100 abonnés : « Il en manque 400. »</span></div></div>
+    <div class="step"><time>11, 12, 17, 18 déc.</time><div><b>Matchs à domicile : grand écran</b><span>Version horizontale de la pub avec code QR vers la page. Idéalement une annonce maison pendant un match.</span></div></div>
+    <div class="step"><time>28 déc.</time><div><b>Grande veillée Tanguay</b><span>Gros match du temps des Fêtes. Rappel du concours sur l'écran et en story.</span></div></div>
+    <div class="step"><time>4 janv.</time><div><b>Relance du retour des Fêtes</b><span>Deuxième Reel, nouvelle vague de pub, bloc dans l'infolettre Klaviyo.</span></div></div>
+    <div class="step key"><time>15 janv.</time><div><b>Cible : 5 000 abonnés, tirage en direct</b><span>Tirage filmé en magasin. Si le chiffre arrive avant, on tire avant.</span></div></div>
+    <div class="step"><time>18 janv.</time><div><b>Date limite ferme du tirage</b><span>On tire même si on n'est pas à 5 000. Le gagnant a 10 jours pour monter sa gang.</span></div></div>
+    <div class="step key"><time>29 janv.</time><div><b>La soirée dans la loge</b><span>On filme : c'est le contenu qui lance le palier 6 000.</span></div></div>
+  </div>
+
+  <div class="two">
+    <div class="card">
+      <span class="pill">Mécanique</span>
+      <ol class="plain" style="margin-top:12px">
+        <li>S'abonner à la page Dickner.</li>
+        <li>Commenter la publication : avec qui tu vas dans la loge?</li>
+        <li>Partager est encouragé, jamais obligatoire.</li>
+        <li>18 ans et plus, résidents du Québec.</li>
+      </ol>
+      <p class="note">Pourquoi ça marche : le prix est pour 12 personnes, donc chaque participant a une raison d'en parler à sa gang ou à sa shop. Et le compteur donne une raison de revenir.</p>
+    </div>
+    <div class="card">
+      <span class="pill">Brouillon de publication</span>
+      <div class="copy" id="copytext">UNE LOGE À L'OCÉANIC POUR TA GANG.
+
+12 places. 200 $ de bouffe. La meilleure vue du Colisée.
+
+On la fait tirer dès que la page atteint 5 000 abonnés.
+
+Pour participer :
+1. Abonne-toi à la page Dickner
+2. Dis-nous en commentaire avec qui tu y vas
+
+Plus vite on arrive à 5 000, plus vite on tire. Tirage au plus tard le 18 janvier.
+Règlement en commentaire.</div>
+      <button class="btn" id="copybtn" type="button">Copier le texte</button>
+    </div>
+  </div>
+</div></section>
+
+<section id="ouverture"><div class="wrap">
+  <p class="eyebrow">05 · Événement à venir</p>
+  <h2>L'ouverture du nouveau magasin</h2>
+  <p class="sub">Le plus gros prétexte de l'année pour faire grossir la page : une nouveauté locale, un rendez-vous, du monde sur place. Dès que la date est confirmée, entre-la ici : le calendrier se place tout seul et le simulateur en tient compte.</p>
+  <div class="two" style="margin-top:0">
+    <div class="card">
+      <label class="eyebrow" for="open-date" style="display:block;margin-bottom:8px">Date d'ouverture</label>
+      <input id="open-date" type="date" min="2026-11-26" max="2028-12-31" class="datein">
+      <p class="note" id="open-note">Date à confirmer. En attendant, le calendrier est en jours avant et après l'ouverture.</p>
+      <div class="steps" id="open-steps" style="margin-top:14px"></div>
+    </div>
+    <div class="facts">
+      <div class="card pil"><em>Grand prix</em><b>60 secondes dans le magasin</b><p>Le gagnant a une minute pour remplir son panier dans le nouveau magasin. On filme tout : c'est le Reel de l'année. Valeur maximale à fixer.</p></div>
+      <div class="card pil"><em>Jour J</em><b>Un tirage à l'heure</b><p>Un prix par marque partenaire, tiré en direct sur la page à chaque heure, parmi les abonnés présents ou non.</p></div>
+      <div class="card pil"><em>Achalandage</em><b>Les 50 premiers</b><p>Un cadeau aux 50 premiers clients. L'heure d'ouverture et le cadeau ne sont annoncés que sur la page.</p></div>
+      <div class="card pil"><em>Avant l'ouverture</em><b>Série « Le nouveau Dickner »</b><p>Le chantier en épisodes. Le Reel du déménagement a déjà rejoint 16 144 personnes : le sujet est porteur.</p></div>
+    </div>
+  </div>
+  <p class="note">Selon la date, l'ouverture renforce le palier le plus proche ou le remplace : pas deux gros concours en même temps.</p>
+</div></section>
+
+<section id="contenu"><div class="wrap">
+  <p class="eyebrow">06 · Contenu</p>
+  <h2>Six séries qui reviennent chaque semaine</h2>
+  <p class="sub">Règle de base : deux publications qu'on a envie de partager pour une publication de promo. C'est le contenu partageable qui retient les abonnés gagnés en concours.</p>
+  <div class="grid3">
+    <div class="card pil"><em>1 par semaine · Reel</em><b>Kevin teste</b><p>Un outil, une vraie job, 30 secondes. Milwaukee, Einhell, Stihl, Echo, Ducar. Le format qui fonctionne déjà, en série numérotée.</p></div>
+    <div class="card pil"><em>1 par semaine · Reel ou photo</em><b>Le truc du comptoir</b><p>Un employé d'une succursale donne un conseil rapide. On alterne Rimouski, Mont-Joli et Amqui pour commencer.</p></div>
+    <div class="card pil"><em>1 par semaine · Photo</em><b>Humour d'atelier</b><p>La douille 10 mm perdue, la rallonge trop courte. Le type de publication qui se partage dans les shops.</p></div>
+    <div class="card pil"><em>2 par mois · Reel</em><b>Chez nos clients</b><p>Un chantier, une ferme, un garage. On identifie l'entreprise : elle repartage à son réseau.</p></div>
+    <div class="card pil"><em>1 par semaine · Photo</em><b>Arrivage</b><p>Ce qui vient d'entrer en magasin, filmé sur le plancher. Court, concret, avec le prix quand c'est possible.</p></div>
+    <div class="card pil"><em>Au besoin · max 1 sur 3</em><b>Promos et circulaires</b><p>Circulaires Einhell, chasse, chauffage, souffleuses. On les garde, mais elles ne portent plus la page à elles seules.</p></div>
+  </div>
+</div></section>
+
+<section id="leviers"><div class="wrap">
+  <p class="eyebrow">07 · Leviers permanents</p>
+  <h2>Ce qui tourne entre les concours</h2>
+  <p class="sub">Coche au fur et à mesure. Les cases restent cochées sur cet appareil.</p>
+  <div class="two" style="margin-top:0">
+    <div class="card todo" id="todo-a"></div>
+    <div class="card todo" id="todo-b"></div>
+  </div>
+</div></section>
+
+<section id="simulateur"><div class="wrap">
+  <p class="eyebrow">08 · Simulateur</p>
+  <h2>Qu'est-ce que ça prend pour arriver à temps?</h2>
+  <p class="sub">Bouge les curseurs pour voir la date d'arrivée. Le coût par abonné et le gain par concours sont des hypothèses de départ, à remplacer par les vrais chiffres après le concours de la loge.</p>
+  <div class="sim">
+    <div class="card ctrl">
+      <label for="s-org">Croissance de fond, par mois <output id="o-org"></output>
+        <input id="s-org" type="range" min="0" max="250" step="5" value="50"></label>
+      <label for="s-bud">Budget pub « abonnés », par mois <output id="o-bud"></output>
+        <input id="s-bud" type="range" min="0" max="1500" step="50" value="300"></label>
+      <label for="s-cpa">Coût par abonné gagné en pub <output id="o-cpa"></output>
+        <input id="s-cpa" type="range" min="0.5" max="5" step="0.25" value="1.5"></label>
+      <label for="s-nb">Concours d'ici décembre 2027 <output id="o-nb"></output>
+        <input id="s-nb" type="range" min="0" max="8" step="1" value="6"></label>
+      <label for="s-gain">Gain moyen par concours <output id="o-gain"></output>
+        <input id="s-gain" type="range" min="100" max="1000" step="25" value="400"></label>
+      <label for="s-open">Gain du concours d'ouverture du magasin <output id="o-open"></output>
+        <input id="s-open" type="range" min="0" max="1500" step="50" value="600"></label>
+      <p class="note">Repères 2026 : la page a pris environ 50 abonnés dans le dernier mois sans concours, et de 216 à 361 abonnés par poussée.</p>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><div class="big num" id="r-total">9 913</div><small>abonnés projetés au 15 décembre 2027</small></div>
+      <div class="verdict" id="r-verdict"></div>
+      <div class="row">
+        <div><b class="num" id="r-date">—</b><small>10 000 atteint</small></div>
+        <div><b class="num" id="r-budget">—</b><small>budget pub total d'ici là</small></div>
+      </div>
+      <div class="row">
+        <div><b class="num" id="r-base">—</b><small>abonnés par mois hors concours</small></div>
+        <div><b class="num" id="r-contest">—</b><small>abonnés venant des concours</small></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section id="suivi"><div class="wrap">
+  <p class="eyebrow">09 · Suivi</p>
+  <h2>Les rendez-vous de mise à jour</h2>
+  <p class="sub">Un plan qu'on ne met pas à jour arrête de servir. Quatre rendez-vous, toujours les mêmes.</p>
+  <div class="steps">
+    <div class="step key"><time>Chaque lundi</time><div><b>Le chiffre de la semaine</b><span>Rapport automatique à Miguel : abonnés, gain de la semaine, rythme requis pour le prochain palier. On entre le nouveau chiffre en haut de cette page.</span></div></div>
+    <div class="step"><time>À chaque 100</time><div><b>Publication compteur</b><span>Pendant un concours de palier : « Il en manque 400 ». C'est ce qui fait revenir et partager.</span></div></div>
+    <div class="step"><time>1er lundi du mois</time><div><b>Bilan du mois</b><span>Les trois meilleures publications, ce qu'on arrête, ce qu'on refait. On ajuste les curseurs du simulateur avec les vrais chiffres.</span></div></div>
+    <div class="step"><time>Après un tirage</time><div><b>Bilan du concours</b><span>Abonnés gagnés, coût par abonné, désabonnements après 30 jours. On s'en sert pour régler le palier suivant.</span></div></div>
+  </div>
+  <p class="note" id="next-up"></p>
+</div></section>
+
+<section id="regles"><div class="wrap">
+  <p class="eyebrow">10 · Règles du jeu</p>
+  <h2>À respecter pour chaque concours</h2>
+  <div class="grid3" style="margin-top:18px">
+    <div class="card pil"><em>Meta</em><b>Pas de partage obligatoire</b><p>On ne peut pas exiger de partager sur son profil ni d'identifier des amis pour participer. Commenter et réagir, oui. On encourage le partage sans en faire une condition.</p></div>
+    <div class="card pil"><em>Québec</em><b>Un règlement clair</b><p>Plus de déclaration ni de droits à la Régie depuis le 27 octobre 2023, mais il faut toujours afficher le prix et sa valeur, les dates, l'admissibilité et le mode de tirage.</p></div>
+    <div class="card pil"><em>Crédibilité</em><b>Une date limite ferme</b><p>« On tire à 5 000 » s'accompagne toujours d'un « au plus tard le… ». Le tirage est filmé et le gagnant annoncé sur la page.</p></div>
+    <div class="card pil"><em>Sécurité</em><b>Faux comptes</b><p>Dès qu'un concours décolle, de fausses pages écrivent aux participants. On l'annonce d'avance : Dickner ne demande jamais de carte de crédit.</p></div>
+    <div class="card pil"><em>Mesure</em><b>Cinq chiffres par semaine</b><p>Abonnés nets, coût par abonné, partages par publication, portée des Reels, désabonnements dans les 30 jours après un tirage.</p></div>
+    <div class="card pil"><em>Rétention</em><b>Un petit tirage par mois</b><p>Entre deux paliers : une paire de billets (Océanic, 3L) ou un outil. Ça donne une raison de rester abonné après le gros prix.</p></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Mis à jour le 25 novembre 2026. Données : Metricool, page Facebook Dickner, 14 avril au 24 novembre 2026. Calendrier des matchs : billetterie de l'Océanic, consultée le 25 novembre 2026. Dates et prix des paliers 2 à 6 : propositions à valider.</div></footer>
+
+<script>
+(function(){
+"use strict";
+var GOAL=10000, DEADLINE=new Date(2027,11,15);
+var fmt=function(n){return Math.round(n).toLocaleString("fr-CA");};
+var MOIS=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
+var dfmt=function(d){return d.getDate()+(d.getDate()===1?"er":"")+" "+MOIS[d.getMonth()]+" "+d.getFullYear();};
+var D=function(y,m,d){return new Date(y,m-1,d);};
+var $=function(id){return document.getElementById(id);};
+var store={get:function(k){try{return localStorage.getItem(k);}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,v);}catch(e){}}};
+
+var HIST=[[D(2026,4,14),3246],[D(2026,4,27),3350],[D(2026,5,9),3603],[D(2026,5,31),3633],[D(2026,6,7),3641],[D(2026,6,10),3857],[D(2026,6,30),3889],[D(2026,7,26),3917],[D(2026,8,6),4278],[D(2026,8,31),4287],[D(2026,9,30),4293],[D(2026,10,27),4294],[D(2026,11,24),4343]];
+
+var PALIERS=[
+ {n:5000,date:D(2027,1,15),season:"Hiver · hockey",title:"La loge à 5 000",
+  desc:"Loge de 12 personnes à l'Océanic et 200 $ de nourriture. Le concours qui lance la mécanique « on débloque un prix ensemble ».",
+  prix:["Loge 12 personnes, match du 29 janvier (à confirmer)","200 $ de nourriture","Valeur à inscrire au règlement"],
+  meca:["S'abonner et commenter : avec qui tu y vas?","Compteur public à chaque 100 abonnés","Tirage en direct, au plus tard le 18 janvier"],
+  push:["Reel de Kevin au lancement et à la relance","Grand écran de l'Océanic avec code QR","Pub Meta du 1er au 20 décembre et dès le 4 janvier"]},
+ {n:6000,date:D(2027,4,30),season:"Printemps · terrain",title:"Le kit du printemps",
+  desc:"L'ouverture de la saison extérieure. On fait voter la page sur le kit à faire tirer, puis on le débloque à 6 000.",
+  prix:["Trio Stihl ou Echo : coupe-herbe, souffleur, taille-haie","Demander une commandite au fournisseur","2 prix secondaires en accessoires"],
+  meca:["Semaine 1 : vote entre deux kits","Semaine 2 et suivantes : tirage débloqué à 6 000","Contenu de la soirée dans la loge pour lancer"],
+  push:["Série « Kevin teste » spéciale printemps","Infolettre Klaviyo d'ouverture de saison","Co-publication avec la marque partenaire"]},
+ {n:7000,date:D(2027,6,30),season:"Été · chantiers",title:"On débarque à ta shop",
+  desc:"Dickner arrive avec le dîner pour toute l'équipe gagnante et laisse des outils. Les gens nomment leur entreprise : la portée passe par les milieux de travail.",
+  prix:["Dîner BBQ pour l'équipe, jusqu'à 20 personnes","Lot d'outils Milwaukee ou Einhell pour la shop","Reel tourné sur place"],
+  meca:["Commenter le nom de son entreprise et pourquoi","Une entreprise finaliste par succursale","Tirage débloqué à 7 000"],
+  push:["Série « Chez nos clients » en appui","Représentants et comptoirs en parlent aux clients","Pub Meta ciblée construction, agricole, forestier"]},
+ {n:8000,date:D(2027,8,31),season:"Fin d'été · chasse",title:"Le camp est prêt",
+  desc:"Collé sur la circulaire chasse d'automne. Un kit complet pour le camp, au moment où la clientèle y pense déjà.",
+  prix:["Génératrice BE ou King","Chaufferette et accessoires de camp","Carte-cadeau Dickner"],
+  meca:["Commenter : c'est où, ton camp?","Photo de camp la plus partagée : prix bonus","Tirage débloqué à 8 000"],
+  push:["Circulaire chasse en magasin avec code QR","Humour d'atelier version chasse","Groupes Facebook de chasse de la région"]},
+ {n:9000,date:D(2027,10,31),season:"Automne · avant la neige",title:"Prêt pour l'hiver",
+  desc:"Une souffleuse avant la première bordée. Le prix le plus désirable de l'année dans le Bas-Saint-Laurent.",
+  prix:["Souffleuse Ducar","Livraison et mise en route incluses","Pelles et accessoires en prix secondaires"],
+  meca:["Commenter sa pire tempête","Tirage débloqué à 9 000","Annonce du grand final à 10 000"],
+  push:["Reel de Kevin : démarrage de la souffleuse","Flyer souffleuses avec code QR","Pub Meta dès la première neige annoncée"]},
+ {n:10000,date:D(2027,12,15),season:"Black Friday et Fêtes",title:"10 000 mercis",
+  desc:"Le grand final, arrimé au Black Friday 2027 : dix gagnants en dix jours, et un grand prix quand le compteur tombe à 10 000.",
+  prix:["10 prix en 10 jours, fournis par les marques","Grand prix : virée de magasinage chez Dickner","Montant à fixer avec l'équipe"],
+  meca:["Un tirage par jour parmi les abonnés qui commentent","Grand prix débloqué à 10 000","Vidéo bilan : de 4 343 à 10 000"],
+  push:["Infolettre et site en mode Black Friday","Toutes les marques partenaires en co-publication","Grand écran de l'Océanic, saison 2027-2028"]}
+];
+
+var TODO_A=[["inv","Chaque semaine : inviter à aimer la page toutes les personnes qui réagissent aux publications"],["ads","Campagne Meta « abonnés » en continu, Bas-Saint-Laurent et Gaspésie"],["qr","Code QR à la caisse des 4 succursales"],["fact","Mention de la page sur les factures et soumissions"],["klav","Bloc « Suivez-nous » dans chaque infolettre Klaviyo"],["site","Bandeau concours sur le site quand un palier est en cours"]];
+var TODO_B=[["ecran","Code QR dans les pubs du grand écran de l'Océanic"],["emp","Les employés partagent le lancement de chaque concours"],["marq","Co-publications avec Milwaukee, Einhell, Stihl, Echo"],["gbd","Repartage depuis les pages GBD et Équipement Belzile"],["sign","Lien de la page dans les signatures courriel"],["bilan","Bilan chiffré après chaque concours, pour ajuster le suivant"]];
+
+var cur=4343, sel=0, proj=[];
+
+/* ---------- En-tête ---------- */
+function nextPalier(){for(var i=0;i<PALIERS.length;i++){if(cur<PALIERS[i].n)return i;}return -1;}
+function monthsTo(d){return Math.max(0.25,(d-new Date())/2629800000);}
+function renderHead(){
+  var base=4000, pct=Math.max(0,Math.min(100,(cur-base)/(GOAL-base)*100));
+  $("fill").style.width=pct+"%";
+  var t='<span style="left:0%">4 000</span>';
+  PALIERS.forEach(function(p){var x=(p.n-base)/(GOAL-base)*100;t+='<span class="num'+(cur>=p.n?' done':'')+'" style="left:'+x+'%">'+fmt(p.n)+'</span>';});
+  $("ticks").innerHTML=t;
+  var left=Math.max(0,GOAL-cur);
+  $("k-left").textContent=fmt(left);
+  var ni=nextPalier();
+  if(ni<0){$("k-next").textContent="0";$("k-next-l").textContent="objectif atteint";}
+  else{$("k-next").textContent=fmt(PALIERS[ni].n-cur);$("k-next-l").textContent="avant le palier "+fmt(PALIERS[ni].n);}
+  $("k-pace").textContent=fmt(left/monthsTo(DEADLINE));
+  $("loge-left").textContent=fmt(Math.max(0,5000-cur));
+}
+
+/* ---------- Paliers ---------- */
+function li(a){return a.map(function(x){return "<li>"+x+"</li>";}).join("");}
+function renderTabs(){
+  $("tabs").innerHTML=PALIERS.map(function(p,i){
+    return '<button class="tab'+(cur>=p.n?' done':'')+'" role="tab" type="button" id="tab-'+i+'" aria-selected="'+(i===sel)+'" data-i="'+i+'"><b class="num">'+fmt(p.n)+'</b><span>'+MOIS[p.date.getMonth()]+' '+p.date.getFullYear()+'</span></button>';
+  }).join("");
+}
+function renderPanel(){
+  var p=PALIERS[sel], prev=sel?PALIERS[sel-1].n:0, need=p.n-cur, pace;
+  if(need<=0){pace='<b>Atteint</b><span>Palier débloqué</span>';}
+  else{
+    var w=Math.max(1,(p.date-new Date())/604800000);
+    pace='<b class="num">'+fmt(need/w)+' / sem.</b><span>pour gagner '+fmt(need)+' abonnés d\'ici le '+dfmt(p.date)+'</span>';
+  }
+  $("panel").setAttribute("aria-labelledby","tab-"+sel);
+  $("panel").innerHTML='<div class="panel-head"><div><p class="eyebrow">Palier '+(sel+1)+' sur 6 · '+p.season+' · cible '+dfmt(p.date)+'</p><h3>'+p.title+'</h3><p>'+p.desc+'</p></div><div class="pace">'+pace+'</div></div>'+
+   '<div class="cols"><div class="col"><h4>Le prix</h4><ul>'+li(p.prix)+'</ul></div><div class="col"><h4>La mécanique</h4><ul>'+li(p.meca)+'</ul></div><div class="col"><h4>Ce qui pousse</h4><ul>'+li(p.push)+'</ul></div></div>';
+}
+$("tabs").addEventListener("click",function(e){var b=e.target.closest(".tab");if(!b)return;sel=+b.dataset.i;renderTabs();renderPanel();});
+$("tabs").addEventListener("keydown",function(e){
+  if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft")return;
+  sel=(sel+(e.key==="ArrowRight"?1:PALIERS.length-1))%PALIERS.length;renderTabs();renderPanel();$("tab-"+sel).focus();
+});
+
+/* ---------- Listes à cocher ---------- */
+function renderTodo(id,items){
+  $(id).innerHTML=items.map(function(it){
+    var on=store.get("dk-"+it[0])==="1";
+    return '<label for="c-'+it[0]+'"><input type="checkbox" id="c-'+it[0]+'" data-k="'+it[0]+'"'+(on?" checked":"")+'><span>'+it[1]+'</span></label>';
+  }).join("");
+  $(id).addEventListener("change",function(e){if(e.target.dataset.k)store.set("dk-"+e.target.dataset.k,e.target.checked?"1":"0");});
+}
+
+/* ---------- Ouverture du magasin ---------- */
+var OPEN_STEPS=[[-30,"Série « Le nouveau Dickner »","Un Reel par semaine dans le chantier : les tablettes, l'enseigne, l'équipe. On s'abonne pour voir la suite."],[-14,"Lancement du grand concours","Publication épinglée et Reel de Kevin dans le magasin vide. S'abonner et commenter pour participer."],[-7,"Compte à rebours","Une story par jour, pub Meta sur la région, annonce du cadeau des 50 premiers."],[0,"Jour d'ouverture","Un tirage à l'heure en direct sur la page, représentants des marques, code QR à l'entrée."],[7,"Tirage du grand prix","Tirage filmé en magasin et Reel récapitulatif de la journée."]];
+function openDate(){var v=$("open-date").value;if(!v)return null;var a=v.split("-");var d=new Date(+a[0],+a[1]-1,+a[2]);return isNaN(d)?null:d;}
+function renderOpen(){
+  var od=openDate();
+  $("open-note").textContent=od?"Ouverture le "+dfmt(od)+". Le simulateur ajoute maintenant ce concours à la projection.":"Date à confirmer. En attendant, le calendrier est en jours avant et après l'ouverture.";
+  $("open-steps").innerHTML=OPEN_STEPS.map(function(s){
+    var lab=s[0]===0?"Jour J":(s[0]<0?"J − "+(-s[0]):"J + "+s[0]);
+    if(od){var d=new Date(od.getTime()+s[0]*86400000);lab=d.getDate()+(d.getDate()===1?"er":"")+" "+MOIS[d.getMonth()];}
+    return '<div class="step'+(s[0]===0?' key':'')+'" style="grid-template-columns:86px 1fr"><time>'+lab+'</time><div><b>'+s[1]+'</b><span>'+s[2]+'</span></div></div>';
+  }).join("");
+}
+$("open-date").addEventListener("change",function(){store.set("dk-open",this.value);renderOpen();simulate();});
+
+/* ---------- Simulateur ---------- */
+var CDATES=[D(2027,1,15),D(2027,4,30),D(2027,6,30),D(2027,8,31),D(2027,10,31),D(2027,12,15),D(2027,3,15),D(2027,9,30)];
+function simulate(){
+  var org=+$("s-org").value,bud=+$("s-bud").value,cpa=+$("s-cpa").value,nb=+$("s-nb").value,gain=+$("s-gain").value,og=+$("s-open").value,od=openDate();
+  $("o-open").textContent=od?"+"+fmt(og):"+"+fmt(og)+" · pas compté sans date";
+  $("o-org").textContent="+"+fmt(org);$("o-bud").textContent=fmt(bud)+" $";
+  $("o-cpa").textContent=cpa.toLocaleString("fr-CA",{minimumFractionDigits:2,maximumFractionDigits:2})+" $";
+  $("o-nb").textContent=nb;$("o-gain").textContent="+"+fmt(gain);
+  var perMonth=org+bud/cpa, perDay=perMonth/30.44, DAY=86400000;
+  var cds=CDATES.slice(0,nb).map(function(x){return {d:x,g:gain};});
+  if(od)cds.push({d:new Date(od.getTime()+7*DAY),g:og});
+  var start=new Date();start.setHours(0,0,0,0);
+  var v=cur, d=new Date(start), hit=null, atDeadline=null; proj=[[new Date(d),v]];
+  for(var i=0;i<1100;i++){
+    d=new Date(d.getTime()+DAY); v+=perDay;
+    for(var j=0;j<cds.length;j++){var cd=cds[j].d,back=(cd-d)/DAY; if(back>=0&&back<21&&cd>start){var span=Math.min(21,Math.max(1,(cd-start)/DAY));v+=cds[j].g/span;}}
+    if(i%7===0||v>=GOAL)proj.push([new Date(d),v]);
+    if(atDeadline===null&&d>=DEADLINE)atDeadline=v;
+    if(hit===null&&v>=GOAL){hit=new Date(d);}
+    if(hit&&atDeadline!==null)break;
+  }
+  if(atDeadline===null)atDeadline=v;
+  $("r-total").textContent=fmt(atDeadline);
+  $("r-date").textContent=hit?MOIS[hit.getMonth()]+" "+hit.getFullYear():"après "+d.getFullYear();
+  $("r-budget").textContent=fmt(bud*monthsTo(DEADLINE))+" $";
+  $("r-base").textContent="+"+fmt(perMonth);
+  $("r-contest").textContent="+"+fmt(nb*gain+(od?og:0));
+  var gap=GOAL-atDeadline, vd=$("r-verdict");
+  if(gap<=0)vd.textContent="Ça passe : 10 000 atteint avant la date cible.";
+  else if(gap<600)vd.textContent="Presque : il manque "+fmt(gap)+" abonnés. Un concours plus fort ou un peu plus de pub ferme l'écart.";
+  else vd.textContent="Trop court de "+fmt(gap)+" abonnés. Il faut plus de budget, plus de concours ou une date plus loin.";
+  drawChart();
+}
+["s-org","s-bud","s-cpa","s-nb","s-gain","s-open"].forEach(function(id){$(id).addEventListener("input",simulate);});
+
+/* ---------- Graphique ---------- */
+function drawChart(){
+  var W=900,H=390,L=56,R=18,T=16,B=36,x0=D(2026,4,1).getTime(),x1=D(2028,1,1).getTime(),y0=3000,y1=10500;
+  var X=function(d){return L+(d-x0)/(x1-x0)*(W-L-R);},Y=function(v){return H-B-(Math.min(v,y1)-y0)/(y1-y0)*(H-T-B);};
+  var s='';
+  for(var v=4000;v<=10000;v+=1000){s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="'+(v===GOAL?'#0a0a0a':'#e3e6da')+'" stroke-width="'+(v===GOAL?1.5:1)+'"/><text x="'+(L-8)+'" y="'+(Y(v)+4)+'" text-anchor="end" font-size="12" fill="#55564f" font-family="Archivo, sans-serif">'+fmt(v)+'</text>';}
+  [[2026,4],[2026,7],[2026,10],[2027,1],[2027,4],[2027,7],[2027,10]].forEach(function(m){var d=D(m[0],m[1],1);s+='<text x="'+X(d)+'" y="'+(H-12)+'" font-size="12" fill="#55564f" font-family="Archivo, sans-serif">'+MOIS[m[1]-1]+' '+String(m[0]).slice(2)+'</text><line x1="'+X(d)+'" x2="'+X(d)+'" y1="'+(H-B)+'" y2="'+(H-B+5)+'" stroke="#828282"/>';});
+  var pts=function(a){return a.filter(function(p){return p[0].getTime()<=x1;}).map(function(p){return X(p[0]).toFixed(1)+","+Y(p[1]).toFixed(1);}).join(" ");};
+  if(proj.length){s+='<polyline points="'+pts(proj)+'" fill="none" stroke="#D1F811" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/><polyline points="'+pts(proj)+'" fill="none" stroke="#0a0a0a" stroke-width="1" stroke-dasharray="2 5"/>';}
+  var od=openDate();
+  if(od&&od.getTime()>x0&&od.getTime()<x1){s+='<line x1="'+X(od)+'" x2="'+X(od)+'" y1="'+T+'" y2="'+(H-B)+'" stroke="#0a0a0a" stroke-width="1.5" stroke-dasharray="3 4"/><text x="'+(X(od)+6)+'" y="'+(T+12)+'" font-size="12" font-weight="800" fill="#0a0a0a" font-family="Archivo, sans-serif">Ouverture</text>';}
+  var last=HIST[HIST.length-1], target=[[last[0],last[1]]].concat(PALIERS.map(function(p){return [p.date,p.n];}));
+  s+='<polyline points="'+pts(target)+'" fill="none" stroke="#828282" stroke-width="2" stroke-dasharray="6 5"/>';
+  s+='<polyline points="'+pts(HIST)+'" fill="none" stroke="#0a0a0a" stroke-width="3" stroke-linejoin="round"/>';
+  PALIERS.forEach(function(p,i){var cx=X(p.date),cy=Y(p.n);s+='<circle cx="'+cx+'" cy="'+cy+'" r="6" fill="#D1F811" stroke="#0a0a0a" stroke-width="2"/><text x="'+(cx-10)+'" y="'+(cy-9)+'" text-anchor="end" font-size="12.5" font-weight="800" fill="#0a0a0a" font-family="Archivo, sans-serif">'+fmt(p.n)+'</text>';});
+  s+='<circle cx="'+X(last[0])+'" cy="'+Y(last[1])+'" r="5" fill="#0a0a0a"/><text x="'+(X(last[0])+9)+'" y="'+(Y(last[1])+16)+'" font-size="12.5" font-weight="800" fill="#0a0a0a" font-family="Archivo, sans-serif">'+fmt(last[1])+' · 24 nov.</text>';
+  $("chart").innerHTML=s;
+}
+
+/* ---------- Divers ---------- */
+$("current").addEventListener("input",function(){var n=parseInt(this.value,10);if(isNaN(n)||n<0)return;cur=n;store.set("dk-current",String(n));renderAll();});
+$("copybtn").addEventListener("click",function(){
+  var b=this,txt=$("copytext").textContent;
+  var ok=function(){b.textContent="Copié";setTimeout(function(){b.textContent="Copier le texte";},1600);};
+  try{navigator.clipboard.writeText(txt).then(ok,function(){b.textContent="Sélectionne le texte pour copier";});}catch(e){b.textContent="Sélectionne le texte pour copier";}
+});
+function renderAll(){renderHead();renderTabs();renderPanel();simulate();}
+var saved=parseInt(store.get("dk-current"),10);
+if(!isNaN(saved)&&saved>=4343){cur=saved;$("current").value=saved;}
+var ni=nextPalier();sel=ni<0?PALIERS.length-1:ni;
+var so=store.get("dk-open");if(so)$("open-date").value=so;
+renderOpen();
+(function(){var n=new Date(),d=new Date(n.getFullYear(),n.getMonth(),n.getDate());d.setDate(d.getDate()+((8-d.getDay())%7||7));$("next-up").textContent="Prochaine mise à jour : lundi "+dfmt(d)+".";})();
+renderTodo("todo-a",TODO_A);renderTodo("todo-b",TODO_B);
+renderAll();
+})();
+</script>
+</body>
+</html>
